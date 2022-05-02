@@ -1,0 +1,22 @@
+version: "3.5"
+
+#Docker services
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.16-management
+    container_name: rabbitmq
+    restart: always
+    tty: true
+    stdin_open: true
+    volumes:
+      #Add volume host to container in read only mode
+      - ./enable_plugins:/etc/rabbitmq/enabled_plugins:ro
+    ports:
+      #HTTP dashboard management
+      - "15672:15672"
+      #AMQP Protocol
+      - "5672:5672"
+      #MQTT Protocol
+      - "1883:1883"
+      #MQTT Over Websockets
+      - "15675:15675"
